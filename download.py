@@ -56,15 +56,18 @@ def open():
     url=input("enter the course url(copy it from the brwowser) : ") #url of the course is entered 
 
     if( url.find('index.htm') != -1):
-        url=url.replace('index.htm','video-lectures')
-    else:
-        url=str(url)+"video-lectures/"
+        url=url.replace('index.htm','/lecture-videos')
+    if(url.find('video')==-1):
+        print("\ngive me the link for video pages of an mit course\n")
+        return
 
     print (url)
     
     f=urllib.request.urlopen(url) #opens the url
 
-    html=f.read().decode('utf-8', 'ignore') #translate the open url html page to utf-8 encoding and ignore the characters that are not able to be converted
+    html=f.read().decode('utf-8', 'ignore') #translate the open url html page which are utf-8 encoded to 
+                                            #  binary strings which machines could understand
+                                            #   and ignore the characters that are not able to be converted
 
 
     parser=MyLectureParser()    #good to make HTML parser a subclass
